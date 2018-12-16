@@ -1,11 +1,12 @@
 name: simple_logger
 description: Simple logger.
-version: 0.0.1
+version: 0.0.6
 author: Masayuki Ono <mono0926@gmail.com>
-homepage: https://github.com/mono0926/simple_logger.dart
+homepage: https://github.com/mono0926/simple_logger
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 dependencies:
   logging: ^0.11.3
+  stack_trace: ^1.9.3
 dev_dependencies:
   test: ^1.0.0
