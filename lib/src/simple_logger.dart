@@ -41,8 +41,8 @@ class SimpleLogger {
         lineFrame: frame,
         message: record.message,
       );
-      final _formatter = formatter ?? format;
-      print(_formatter(info));
+      final f = formatter ?? _formatter;
+      print(f(info));
       onLogged(info);
     });
   }
@@ -74,7 +74,7 @@ class SimpleLogger {
 
   Formatter formatter;
 
-  String format(LogInfo info) {
+  String _formatter(LogInfo info) {
     final level = '${levelSuffixes[info.level] ?? ''}${info.level}';
     return '$level  ${info.time} [${info.lineFrame ?? 'stacktrace disabled'}] ${info.message}';
   }
