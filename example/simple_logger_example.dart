@@ -22,7 +22,7 @@ void main() {
 
   logger.setLevel(
     Level.INFO,
-    // Enable printing called location
+    // Enable printing called location, but this is expensive.
     stacktraceEnabled: true,
   );
 

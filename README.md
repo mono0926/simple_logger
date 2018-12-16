@@ -23,9 +23,9 @@ logger.shout('Hello shout!');
 // -> 😡 SHOUT  2018-12-16 21:46:20.101308 [stacktrace disabled] Hello shout!
 
 logger.setLevel(
-Level.INFO,
-// Enable printing called location
-stacktraceEnabled: true,
+  Level.INFO,
+  // Enable printing called location, but this is expensive.
+  stacktraceEnabled: true,
 );
 
 // Printed with called location
