@@ -5,8 +5,8 @@ final logger = SimpleLogger();
 
 void main() {
   // Printed without called location
-  // ex: 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
   logger.info('Hello info!');
+  // -> 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
 
   logger.setLevel(Level.WARNING);
 

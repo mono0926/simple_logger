@@ -1,6 +1,6 @@
 name: simple_logger
 description: Simple logger.
-version: 0.0.7
+version: 0.0.8
 author: Masayuki Ono <mono0926@gmail.com>
 homepage: https://github.com/mono0926/simple_logger
 environment:
