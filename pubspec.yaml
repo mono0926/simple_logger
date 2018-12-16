@@ -3,7 +3,7 @@ description: >-
   Provides super simple APIs for debugging and error logging. The log also includes
   called location by setting stacktraceEnabled to true. and Android Studio, if that log is tapped,
   jump to it.
-version: 0.0.10
+version: 0.0.11
 author: Masayuki Ono <mono0926@gmail.com>
 homepage: https://github.com/mono0926/simple_logger
 environment:
