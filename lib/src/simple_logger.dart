@@ -59,16 +59,17 @@ class SimpleLogger {
   /// Any login inserted after log printed.
   OnLogged onLogged = (_log, _info) {};
 
-  void finest(message) => _log(message, Level.FINEST);
-  void finer(message) => _log(message, Level.FINER);
-  void fine(message) => _log(message, Level.FINE);
-  void config(message) => _log(message, Level.CONFIG);
-  void info(message) => _log(message, Level.INFO);
-  void warning(message) => _log(message, Level.WARNING);
-  void severe(message) => _log(message, Level.SEVERE);
-  void shout(message) => _log(message, Level.SHOUT);
+  void finest(message) => _log(Level.FINEST, message);
+  void finer(message) => _log(Level.FINER, message);
+  void fine(message) => _log(Level.FINE, message);
+  void config(message) => _log(Level.CONFIG, message);
+  void info(message) => _log(Level.INFO, message);
+  void warning(message) => _log(Level.WARNING, message);
+  void severe(message) => _log(Level.SEVERE, message);
+  void shout(message) => _log(Level.SHOUT, message);
+  void log(Level level, message) => _log(level, message);
 
-  void _log(message, Level level) {
+  void _log(Level level, message) {
     if (!isLoggable(level)) {
       return;
     }
