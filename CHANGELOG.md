@@ -1,7 +1,13 @@
-## 0.1.1
+## 0.4.0
 
-- First Release
+- Rename to `includesCallerInfo` from `stacktraceEnabled`
+
 
 ## 0.2.0
 
 - Delete `now` property
+
+
+## 0.1.1
+
+- First Release
