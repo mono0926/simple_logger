@@ -1,8 +1,8 @@
 name: simple_logger
 description: >-
   Provides super simple APIs for logging. The log also includes called location by setting
-  stacktraceEnabled to true. and Android Studio, if that log is tapped, jump to it.
-version: 0.1.2
+  stacktraceEnabled to true. On Android Studio, jump to called location by clicking the log.
+version: 0.1.3
 author: Masayuki Ono <mono0926@gmail.com>
 homepage: https://github.com/mono0926/simple_logger
 environment:
