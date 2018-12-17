@@ -14,7 +14,7 @@ void main() {
       expect(target.stacktraceEnabled, false);
 
       target.info('test');
-      target.setLevel(Level.INFO, stacktraceEnabled: true);
+      target.setLevel(Level.INFO, includesCallerInfo: true);
       target.info('test');
     });
   });

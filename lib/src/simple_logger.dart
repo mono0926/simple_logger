@@ -22,14 +22,13 @@ class SimpleLogger {
 
   bool isLoggable(Level value) => value >= level;
 
-  /// If stacktraceEnabled is true, stack traces will be recorded for
+  /// If includesCallerInfo is true, caller info will be included for
   /// any message of this level or above automatically.
-  /// Because this is expensive, this is off by default,
-  /// but to output called location stacktraceEnabled should be true.
-  /// So, setting stacktraceEnabled to true for debug build is recommended.
-  void setLevel(Level level, {bool stacktraceEnabled = false}) {
+  /// Because this is expensive, this is false by default.
+  /// So, setting stacktraceEnabled to true for only debug build is recommended.
+  void setLevel(Level level, {bool includesCallerInfo = false}) {
     _level = level;
-    _stacktraceEnabled = stacktraceEnabled;
+    _stacktraceEnabled = includesCallerInfo;
   }
 
   var levelSuffixes = {

@@ -28,8 +28,8 @@ logger.shout('Hello shout!');
 
 logger.setLevel(
   Level.INFO,
-  // Enable printing called location, but this is expensive.
-  stacktraceEnabled: true,
+  // Includes  caller info, but this is expensive.
+  includesCallerInfo: true,
 );
 
 // Printed with called location
