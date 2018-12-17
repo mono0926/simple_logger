@@ -31,9 +31,6 @@ class SimpleLogger {
 
   SimpleLogger._() {
     Logger.root.onRecord.listen((record) {
-      if (record.level < _level) {
-        return;
-      }
       final frame = _getTargetFrame(record);
       final info = LogInfo(
         level: record.level,
