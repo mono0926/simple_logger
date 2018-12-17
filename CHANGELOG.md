@@ -1,3 +1,8 @@
+## 0.6.0
+
+- Rename to `includesCallerInfo` from `stacktraceEnabled`.
+- Documentation comments added.
+
 ## 0.5.0
 
 - Rename to `callerFrame` from `lineFrame`

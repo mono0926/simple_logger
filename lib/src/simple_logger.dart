@@ -7,12 +7,16 @@ typedef Formatter = String Function(LogInfo info);
 
 typedef OnLogged = void Function(String log, LogInfo info);
 
+/// Get singleton logger by `SimpleLogger()`
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
   var _level = Level.INFO;
-  var _stacktraceEnabled = false;
+  var _includesCallerInfo = false;
   Level get level => _level;
-  bool get stacktraceEnabled => _stacktraceEnabled;
+
+  /// Includes caller info only when includesCallerInfo is true.
+  /// See also `void setLevel(Level level, {bool includesCallerInfo})`
+  bool get includesCallerInfo => _includesCallerInfo;
 
   factory SimpleLogger() {
     return _singleton;
@@ -28,9 +32,11 @@ class SimpleLogger {
   /// So, setting stacktraceEnabled to true for only debug build is recommended.
   void setLevel(Level level, {bool includesCallerInfo = false}) {
     _level = level;
-    _stacktraceEnabled = includesCallerInfo;
+    _includesCallerInfo = includesCallerInfo;
   }
 
+  /// Customize level suffix by changing this.
+  /// You can omit suffix by `logger.levelSuffixes = {};`
   var levelSuffixes = {
     Level.FINEST: '👾 ',
     Level.FINER: '👀 ',
@@ -42,6 +48,7 @@ class SimpleLogger {
     Level.SHOUT: '😡 ',
   };
 
+  /// Customize log output by setting this.
   Formatter formatter;
 
   String _format(LogInfo info) {
@@ -49,6 +56,7 @@ class SimpleLogger {
     return '$level  ${info.time} [${info.callerFrame ?? 'caller info not available'}] ${info.message}';
   }
 
+  /// Any login inserted after log printed.
   OnLogged onLogged = (_log, _info) {};
 
   void finest(message) => _log(message, Level.FINEST);
@@ -89,7 +97,7 @@ class SimpleLogger {
   }
 
   Frame _getCallerFrame() {
-    if (!stacktraceEnabled) {
+    if (!includesCallerInfo) {
       return null;
     }
 

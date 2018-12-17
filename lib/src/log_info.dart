@@ -4,6 +4,9 @@ import 'package:stack_trace/stack_trace.dart' show Frame;
 class LogInfo {
   final Level level;
   final DateTime time;
+
+  /// Caller info.
+  /// Available only when logger's includesCallerInfo is true.
   final Frame callerFrame;
   final String message;
 

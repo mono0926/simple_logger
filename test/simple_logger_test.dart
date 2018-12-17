@@ -11,7 +11,7 @@ void main() {
       expect(target.isLoggable(Level.SHOUT), true);
       expect(target.formatter, null);
       expect(target.levelSuffixes.isNotEmpty, true);
-      expect(target.stacktraceEnabled, false);
+      expect(target.includesCallerInfo, false);
 
       target.info('test');
       target.setLevel(Level.INFO, includesCallerInfo: true);
