@@ -18,9 +18,7 @@ class SimpleLogger {
   /// See also `void setLevel(Level level, {bool includeCallerInfo})`
   bool get includeCallerInfo => _includeCallerInfo;
 
-  factory SimpleLogger() {
-    return _singleton;
-  }
+  factory SimpleLogger() => _singleton;
 
   SimpleLogger._();
 
