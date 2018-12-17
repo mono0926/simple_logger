@@ -3,9 +3,9 @@ import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
 
 import 'log_info.dart';
 
-typedef Formatter = String Function(LogInfo);
+typedef Formatter = String Function(LogInfo info);
 
-typedef OnLogged = void Function(LogInfo);
+typedef OnLogged = void Function(String log, LogInfo info);
 
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
@@ -50,7 +50,7 @@ class SimpleLogger {
     return '$level  ${info.time} [${info.lineFrame ?? 'stacktrace disabled'}] ${info.message}';
   }
 
-  OnLogged onLogged = (_info) {};
+  OnLogged onLogged = (_log, _info) {};
 
   void finest(message) => _log(message, Level.FINEST);
   void finer(message) => _log(message, Level.FINER);
@@ -83,9 +83,10 @@ class SimpleLogger {
     );
 
     final f = formatter ?? _format;
-    print(f(info));
+    final log = f(info);
+    print(log);
 
-    onLogged(info);
+    onLogged(log, info);
   }
 
   Frame _getTargetFrame() {

@@ -43,7 +43,7 @@ void main() {
   logger.info('Hello info!');
   // -> Customized output: (Hello info!)
 
-  logger.onLogged = (info) => print('Insert your logic with $info');
+  logger.onLogged = (_log, info) => print('Insert your logic with $info');
   logger.info('Hello info!');
   // -> Customized output: (Hello info!)
   // -> Insert your logic with Instance of 'LogInfo'

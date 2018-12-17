@@ -12,6 +12,10 @@ void main() {
       expect(target.formatter, null);
       expect(target.levelSuffixes.isNotEmpty, true);
       expect(target.stacktraceEnabled, false);
+
+      target.info('test');
+      target.setLevel(Level.INFO, stacktraceEnabled: true);
+      target.info('test');
     });
   });
 }
