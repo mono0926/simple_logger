@@ -101,15 +101,9 @@ class SimpleLogger {
       return null;
     }
 
-    final stackTrace = StackTrace.current;
-    if (stackTrace == null) {
-      return null;
-    }
-    final frames = Trace.from(stackTrace).frames;
-    const index = 3;
-    if (frames.length > index) {
-      return frames[index];
-    }
-    return frames.last;
+    const level = 3;
+    // Expensive
+    final frames = Trace.current(level).frames;
+    return frames.isEmpty ? null : frames.first;
   }
 }
