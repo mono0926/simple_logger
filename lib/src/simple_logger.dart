@@ -11,12 +11,12 @@ typedef OnLogged = void Function(String log, LogInfo info);
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
   var _level = Level.INFO;
-  var _includesCallerInfo = false;
+  var _includeCallerInfo = false;
   Level get level => _level;
 
-  /// Includes caller info only when includesCallerInfo is true.
-  /// See also `void setLevel(Level level, {bool includesCallerInfo})`
-  bool get includesCallerInfo => _includesCallerInfo;
+  /// Includes caller info only when includeCallerInfo is true.
+  /// See also `void setLevel(Level level, {bool includeCallerInfo})`
+  bool get includeCallerInfo => _includeCallerInfo;
 
   factory SimpleLogger() {
     return _singleton;
@@ -26,13 +26,13 @@ class SimpleLogger {
 
   bool isLoggable(Level value) => value >= level;
 
-  /// If includesCallerInfo is true, caller info will be included for
+  /// If includeCallerInfo is true, caller info will be included for
   /// any message of this level or above automatically.
   /// Because this is expensive, this is false by default.
   /// So, setting stacktraceEnabled to true for only debug build is recommended.
-  void setLevel(Level level, {bool includesCallerInfo = false}) {
+  void setLevel(Level level, {bool includeCallerInfo = false}) {
     _level = level;
-    _includesCallerInfo = includesCallerInfo;
+    _includeCallerInfo = includeCallerInfo;
   }
 
   /// Customize level suffix by changing this.
@@ -97,7 +97,7 @@ class SimpleLogger {
   }
 
   Frame _getCallerFrame() {
-    if (!includesCallerInfo) {
+    if (!includeCallerInfo) {
       return null;
     }
 

@@ -1,3 +1,7 @@
+## 0.7.0
+
+- Rename to `includeCallerInfo` from `includesCallerInfo`.
+
 ## 0.6.0
 
 - Rename to `includesCallerInfo` from `stacktraceEnabled`.

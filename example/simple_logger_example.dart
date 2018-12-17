@@ -27,7 +27,7 @@ void main() {
   logger.setLevel(
     Level.INFO,
     // Includes  caller info, but this is expensive.
-    includesCallerInfo: true,
+    includeCallerInfo: true,
   );
 
   // Printed with called location

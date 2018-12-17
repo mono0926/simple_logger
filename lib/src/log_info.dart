@@ -6,7 +6,7 @@ class LogInfo {
   final DateTime time;
 
   /// Caller info.
-  /// Available only when logger's includesCallerInfo is true.
+  /// Available only when logger's includeCallerInfo is true.
   final Frame callerFrame;
   final String message;
 
