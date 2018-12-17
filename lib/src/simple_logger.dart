@@ -1,5 +1,5 @@
-import 'package:logging/logging.dart';
-import 'package:stack_trace/stack_trace.dart';
+import 'package:logging/logging.dart' show Level;
+import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
 
 class LogInfo {
   final Level level;
@@ -21,28 +21,18 @@ typedef OnLogged = void Function(LogInfo);
 
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
-  final _logger = Logger('Simple Logger');
-  var _level = Logger.root.level;
+  var _level = Level.INFO;
+  var _stacktraceEnabled = false;
   Level get level => _level;
+  bool get stacktraceEnabled => _stacktraceEnabled;
 
   factory SimpleLogger() {
     return _singleton;
   }
 
-  SimpleLogger._() {
-    Logger.root.onRecord.listen((record) {
-      final frame = _getTargetFrame(record);
-      final info = LogInfo(
-        level: record.level,
-        time: now ?? record.time,
-        lineFrame: frame,
-        message: record.message,
-      );
-      final f = formatter ?? _formatter;
-      print(f(info));
-      onLogged(info);
-    });
-  }
+  SimpleLogger._();
+
+  bool isLoggable(Level value) => value >= level;
 
   /// If stacktraceEnabled is true, stack traces will be recorded for
   /// any message of this level or above automatically.
@@ -50,9 +40,8 @@ class SimpleLogger {
   /// but to output called location stacktraceEnabled should be true.
   /// So, setting stacktraceEnabled to true for debug build is recommended.
   void setLevel(Level level, {bool stacktraceEnabled = false}) {
-    recordStackTraceAtLevel = stacktraceEnabled ? level : Level.OFF;
-    Logger.root.level = level;
     _level = level;
+    _stacktraceEnabled = stacktraceEnabled;
   }
 
   /// Override read recorded time.
@@ -78,8 +67,48 @@ class SimpleLogger {
 
   OnLogged onLogged = (_info) {};
 
-  Frame _getTargetFrame(LogRecord record) {
-    final stackTrace = record.stackTrace;
+  void finest(message) => _log(message, Level.FINEST);
+  void finer(message) => _log(message, Level.FINER);
+  void fine(message) => _log(message, Level.FINE);
+  void config(message) => _log(message, Level.CONFIG);
+  void info(message) => _log(message, Level.INFO);
+  void warning(message) => _log(message, Level.WARNING);
+  void severe(message) => _log(message, Level.SEVERE);
+  void shout(message) => _log(message, Level.SHOUT);
+
+  void _log(message, Level level) {
+    if (!isLoggable(level)) {
+      return;
+    }
+
+    String msg;
+    if (message is Function) {
+      msg = message().toString();
+    } else if (message is String) {
+      msg = message;
+    } else {
+      msg = message.toString();
+    }
+
+    final info = LogInfo(
+      level: level,
+      time: now ?? DateTime.now(),
+      lineFrame: _getTargetFrame(),
+      message: msg,
+    );
+
+    final f = formatter ?? _formatter;
+    print(f(info));
+
+    onLogged(info);
+  }
+
+  Frame _getTargetFrame() {
+    if (!stacktraceEnabled) {
+      return null;
+    }
+
+    final stackTrace = StackTrace.current;
     if (stackTrace == null) {
       return null;
     }
@@ -90,13 +119,4 @@ class SimpleLogger {
     }
     return frames.last;
   }
-
-  void finest(message) => _logger.finest(message);
-  void finer(message) => _logger.finer(message);
-  void fine(message) => _logger.fine(message);
-  void config(message) => _logger.config(message);
-  void info(message) => _logger.info(message);
-  void warning(message) => _logger.warning(message);
-  void severe(message) => _logger.severe(message);
-  void shout(message) => _logger.shout(message);
 }

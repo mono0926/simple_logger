@@ -10,6 +10,10 @@ final logger = SimpleLogger();
 logger.info('Hello info!');
 // -> 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
 
+// Printed function which returns object
+logger.info(() => 'Hello info!');
+// -> 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
+
 logger.setLevel(Level.WARNING);
 
 // Not printed
