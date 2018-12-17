@@ -1,3 +1,8 @@
+## 0.5.0
+
+- Rename to `callerFrame` from `lineFrame`
+- Change log to 'caller info not available' from 'stacktrace disabled' when `includesCallerInfo` is `false`
+
 ## 0.4.0
 
 - Rename to `includesCallerInfo` from `stacktraceEnabled`

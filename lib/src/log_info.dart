@@ -4,13 +4,13 @@ import 'package:stack_trace/stack_trace.dart' show Frame;
 class LogInfo {
   final Level level;
   final DateTime time;
-  final Frame lineFrame;
+  final Frame callerFrame;
   final String message;
 
   LogInfo({
     this.level,
     this.time,
-    this.lineFrame,
+    this.callerFrame,
     this.message,
   });
 }

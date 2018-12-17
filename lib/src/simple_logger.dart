@@ -46,7 +46,7 @@ class SimpleLogger {
 
   String _format(LogInfo info) {
     final level = '${levelSuffixes[info.level] ?? ''}${info.level}';
-    return '$level  ${info.time} [${info.lineFrame ?? 'stacktrace disabled'}] ${info.message}';
+    return '$level  ${info.time} [${info.callerFrame ?? 'caller info not available'}] ${info.message}';
   }
 
   OnLogged onLogged = (_log, _info) {};
@@ -77,7 +77,7 @@ class SimpleLogger {
     final info = LogInfo(
       level: level,
       time: DateTime.now(),
-      lineFrame: _getTargetFrame(),
+      callerFrame: _getCallerFrame(),
       message: msg,
     );
 
@@ -88,7 +88,7 @@ class SimpleLogger {
     onLogged(log, info);
   }
 
-  Frame _getTargetFrame() {
+  Frame _getCallerFrame() {
     if (!stacktraceEnabled) {
       return null;
     }

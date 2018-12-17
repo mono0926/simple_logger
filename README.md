@@ -8,11 +8,11 @@ final logger = SimpleLogger();
 
 // Printed without called location
 logger.info('Hello info!');
-// -> 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
+// -> 👻 INFO  2018-12-16 21:46:20.092695 [caller info not available] Hello info!
 
 // Printed function which returns object
 logger.info(() => 'Hello info!');
-// -> 👻 INFO  2018-12-16 21:46:20.092695 [stacktrace disabled] Hello info!
+// -> 👻 INFO  2018-12-16 21:46:20.092695 [caller info not available] Hello info!
 
 logger.setLevel(Level.WARNING);
 
@@ -21,10 +21,10 @@ logger.info('Hello info!');
 
 // Printed
 logger.warning('Hello warning!');
-// -> ⚠️ WARNING  2018-12-16 21:46:20.101114 [stacktrace disabled] Hello warning!
+// -> ⚠️ WARNING  2018-12-16 21:46:20.101114 [caller info not available] Hello warning!
 
 logger.shout('Hello shout!');
-// -> 😡 SHOUT  2018-12-16 21:46:20.101308 [stacktrace disabled] Hello shout!
+// -> 😡 SHOUT  2018-12-16 21:46:20.101308 [caller info not available] Hello shout!
 
 logger.setLevel(
   Level.INFO,
