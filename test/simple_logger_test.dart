@@ -5,7 +5,6 @@ void main() {
   group('Simple Logger tests', () {
     final target = SimpleLogger();
     test('test', () {
-      expect(target.now, null);
       expect(target.level, Level.INFO);
       expect(target.isLoggable(Level.INFO), true);
       expect(target.isLoggable(Level.FINE), false);

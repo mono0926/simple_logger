@@ -1,19 +1,7 @@
 import 'package:logging/logging.dart' show Level;
 import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
 
-class LogInfo {
-  final Level level;
-  final DateTime time;
-  final Frame lineFrame;
-  final String message;
-
-  LogInfo({
-    this.level,
-    this.time,
-    this.lineFrame,
-    this.message,
-  });
-}
+import 'log_info.dart';
 
 typedef Formatter = String Function(LogInfo);
 
@@ -44,9 +32,6 @@ class SimpleLogger {
     _stacktraceEnabled = stacktraceEnabled;
   }
 
-  /// Override read recorded time.
-  DateTime now;
-
   var levelSuffixes = {
     Level.FINEST: '👾 ',
     Level.FINER: '👀 ',
@@ -60,7 +45,7 @@ class SimpleLogger {
 
   Formatter formatter;
 
-  String _formatter(LogInfo info) {
+  String _format(LogInfo info) {
     final level = '${levelSuffixes[info.level] ?? ''}${info.level}';
     return '$level  ${info.time} [${info.lineFrame ?? 'stacktrace disabled'}] ${info.message}';
   }
@@ -92,12 +77,12 @@ class SimpleLogger {
 
     final info = LogInfo(
       level: level,
-      time: now ?? DateTime.now(),
+      time: DateTime.now(),
       lineFrame: _getTargetFrame(),
       message: msg,
     );
 
-    final f = formatter ?? _formatter;
+    final f = formatter ?? _format;
     print(f(info));
 
     onLogged(info);

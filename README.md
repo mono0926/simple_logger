@@ -41,11 +41,6 @@ logger.levelSuffixes = {};
 logger.info('Hello info!');
 // -> INFO  2018-12-16 21:50:03.562583 [example/simple_logger_example.dart 29:10 in main] Hello info!
 
-// Override recorded time
-logger.now = DateTime(2000);
-logger.info('Hello info!');
-// -> INFO  2000-01-01 00:00:00.000 [example/simple_logger_example.dart 38:10 in main] Hello info!
-
 logger.formatter = (info) => 'Customized output: (${info.message})';
 logger.info('Hello info!');
 // -> Customized output: (Hello info!)
