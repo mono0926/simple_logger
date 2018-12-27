@@ -51,10 +51,14 @@ class SimpleLogger {
 
   String _format(LogInfo info) {
     final level = '${levelSuffixes[info.level] ?? ''}${info.level}';
-    return '$level  ${info.time} [${info.callerFrame ?? 'caller info not available'}] ${info.message}';
+    return '$level  '
+        '${info.time} '
+        '[${info.callerFrame ?? 'caller info not available'}] '
+        '${info.message}';
   }
 
   /// Any login inserted after log printed.
+  // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (_log, _info) {};
 
   void finest(message) => _log(Level.FINEST, message);
