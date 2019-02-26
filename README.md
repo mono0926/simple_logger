@@ -54,6 +54,10 @@ logger.info('Hello info!');
 // -> Insert your logic with Instance of 'LogInfo'
 ```
 
+## Technical Articles
+
+- [Dartのログ出力に呼び出し元の情報を含めてクリックで飛べるようにする – Flutter 🇯🇵 – Medium](https://medium.com/flutter-jp/logger-ec25d8dd179a)
+
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
