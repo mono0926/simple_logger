@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Bump up to 1.0.0
+
 ## 0.7.5
 
 - Update documentation.
