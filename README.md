@@ -1,4 +1,7 @@
-Simple Logger
+# simple_logger
+
+Provides super simple APIs for logging. The log also includes caller info by setting includeCallerInfo to true. On Android Studio, jump to caller info by clicking the log.
+
 
 ## Usage
 

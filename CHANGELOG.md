@@ -1,3 +1,7 @@
+## 0.7.5
+
+- Update documentation.
+
 ## 0.7.0
 
 - Rename to `includeCallerInfo` from `includesCallerInfo`.

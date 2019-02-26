@@ -8,6 +8,10 @@ typedef Formatter = String Function(LogInfo info);
 typedef OnLogged = void Function(String log, LogInfo info);
 
 /// Get singleton logger by `SimpleLogger()`
+///
+/// ```dart
+/// final logger = SimpleLogger();
+/// ```
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
   var _level = Level.INFO;
@@ -28,13 +32,27 @@ class SimpleLogger {
   /// any message of this level or above automatically.
   /// Because this is expensive, this is false by default.
   /// So, setting stacktraceEnabled to true for only debug build is recommended.
+  ///
+  /// ### Example
+  ///
+  /// ```
+  /// logger.setLevel(
+  ///   Level.INFO,
+  ///   includeCallerInfo: true,
+  /// );
+  /// ```
   void setLevel(Level level, {bool includeCallerInfo = false}) {
     _level = level;
     _includeCallerInfo = includeCallerInfo;
   }
 
   /// Customize level suffix by changing this.
-  /// You can omit suffix by `logger.levelSuffixes = {};`
+  ///
+  /// ### Suffix can be omitted.
+  ///
+  /// ```
+  /// logger.levelSuffixes = {};
+  /// ```
   var levelSuffixes = {
     Level.FINEST: '👾 ',
     Level.FINER: '👀 ',
@@ -47,6 +65,12 @@ class SimpleLogger {
   };
 
   /// Customize log output by setting this.
+  ///
+  /// ### Example
+  ///
+  /// ```
+  /// logger.formatter = (_log, info) => 'Customized output: (${info.message})';
+  /// ```
   Formatter formatter;
 
   String _format(LogInfo info) {
@@ -58,6 +82,12 @@ class SimpleLogger {
   }
 
   /// Any login inserted after log printed.
+  ///
+  /// ### Example
+  ///
+  /// ```
+  /// logger.onLogged = (info) => print('Insert your logic with $info');
+  /// ```
   // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (_log, _info) {};
 
