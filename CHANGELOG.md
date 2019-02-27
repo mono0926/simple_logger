@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Rename to `LoggerMode.print` from `LoggerMode.stdout`.
+
 ## 1.3.0 
 
 - Omit time if `mode` is `LoggerMode.log`.

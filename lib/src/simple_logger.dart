@@ -12,13 +12,13 @@ typedef OnLogged = void Function(String log, LogInfo info);
 /// Select log mode.
 ///
 /// Default is [log], which use `dart:developer`'s `log` function.
-/// The `stdout` use [print] function.
+/// The `print` use [print] function.
 enum LoggerMode {
   /// Use `dart:developer`'s function.
   log,
 
   /// Use [print] function.
-  stdout
+  print
 }
 
 /// Get singleton logger by `SimpleLogger()`
@@ -106,7 +106,7 @@ class SimpleLogger {
     switch (mode) {
       case LoggerMode.log:
         return '';
-      case LoggerMode.stdout:
+      case LoggerMode.print:
         return '${levelSuffixes[level] ?? ''}$level ';
     }
     assert(false);
@@ -117,7 +117,7 @@ class SimpleLogger {
     switch (mode) {
       case LoggerMode.log:
         return '';
-      case LoggerMode.stdout:
+      case LoggerMode.print:
         return '$time ';
     }
     assert(false);
@@ -178,7 +178,7 @@ class SimpleLogger {
               : null,
         );
         break;
-      case LoggerMode.stdout:
+      case LoggerMode.print:
         print(log);
     }
 
