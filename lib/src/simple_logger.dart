@@ -97,7 +97,7 @@ class SimpleLogger {
 
   String _format(LogInfo info) {
     return '${_levelInfo(info.level)}'
-        '${info.time} '
+        '${_timeInfo(info.time)}'
         '[${info.callerFrame ?? 'caller info not available'}] '
         '${info.message}';
   }
@@ -108,6 +108,17 @@ class SimpleLogger {
         return '';
       case LoggerMode.stdout:
         return '${levelSuffixes[level] ?? ''}$level ';
+    }
+    assert(false);
+    return '';
+  }
+
+  String _timeInfo(DateTime time) {
+    switch (mode) {
+      case LoggerMode.log:
+        return '';
+      case LoggerMode.stdout:
+        return '${time} ';
     }
     assert(false);
     return '';
