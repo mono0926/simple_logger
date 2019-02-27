@@ -118,7 +118,7 @@ class SimpleLogger {
       case LoggerMode.log:
         return '';
       case LoggerMode.stdout:
-        return '${time} ';
+        return '$time ';
     }
     assert(false);
     return '';
