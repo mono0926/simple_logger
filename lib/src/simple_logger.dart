@@ -97,7 +97,7 @@ class SimpleLogger {
 
   String _format(LogInfo info) {
     return '${_levelInfo(info.level)}'
-        '${info.time}'
+        '${info.time} '
         '[${info.callerFrame ?? 'caller info not available'}] '
         '${info.message}';
   }
