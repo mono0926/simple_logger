@@ -11,3 +11,4 @@ build/
 doc/api/
 /.idea
 /res
+/lib/generated
