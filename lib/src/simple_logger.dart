@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:logging/logging.dart' show Level;
 import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
 
@@ -6,6 +8,18 @@ import 'log_info.dart';
 typedef Formatter = String Function(LogInfo info);
 
 typedef OnLogged = void Function(String log, LogInfo info);
+
+/// Select log mode.
+///
+/// Default is [log], which use `dart:developer`'s `log` function.
+/// The `stdout` use [print] function.
+enum LoggerMode {
+  /// Use `dart:developer`'s function.
+  log,
+
+  /// Use [print] function.
+  stdout
+}
 
 /// Get singleton logger by `SimpleLogger()`
 ///
@@ -17,6 +31,7 @@ class SimpleLogger {
   var _level = Level.INFO;
   var _includeCallerInfo = false;
   Level get level => _level;
+  var mode = LoggerMode.log;
 
   /// Includes caller info only when includeCallerInfo is true.
   /// See also `void setLevel(Level level, {bool includeCallerInfo})`
@@ -74,11 +89,21 @@ class SimpleLogger {
   Formatter formatter;
 
   String _format(LogInfo info) {
-    final level = '${levelSuffixes[info.level] ?? ''}${info.level}';
-    return '$level  '
-        '${info.time} '
+    return '${_levelInfo(info.level)}'
+        '${info.time}'
         '[${info.callerFrame ?? 'caller info not available'}] '
         '${info.message}';
+  }
+
+  String _levelInfo(Level level) {
+    switch (mode) {
+      case LoggerMode.log:
+        return '';
+      case LoggerMode.stdout:
+        return '${levelSuffixes[level] ?? ''}$level ';
+    }
+    assert(false);
+    return '';
   }
 
   /// Any login inserted after log printed.
@@ -124,7 +149,17 @@ class SimpleLogger {
 
     final f = formatter ?? _format;
     final log = f(info);
-    print(log);
+    switch (mode) {
+      case LoggerMode.log:
+        developer.log(
+          log,
+          level: level.value,
+          name: 'simple_logger',
+        );
+        break;
+      case LoggerMode.stdout:
+        print(log);
+    }
 
     onLogged(log, info);
   }

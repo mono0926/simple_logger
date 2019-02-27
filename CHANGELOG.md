@@ -1,3 +1,8 @@
+## 1.1.0
+
+- Add LoggerMode
+  - Default is LoggerMode.log, which uses `dart:developer`'s `log` function.
+  - If LoggerMode.stdout is selected, `print` function will be used.
 ## 1.0.0
 
 - Bump up to 1.0.0
