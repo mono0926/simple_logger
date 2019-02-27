@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Include `stackTrace` to log if `mode` is `LoggerMode.log` and `stackTraceLevel` is higher than passed `level`.
+
 ## 1.1.0
 
 - Add LoggerMode

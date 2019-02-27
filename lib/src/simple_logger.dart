@@ -29,8 +29,10 @@ enum LoggerMode {
 class SimpleLogger {
   static final _singleton = SimpleLogger._();
   var _level = Level.INFO;
+  var _stackTraceLevel = Level.SEVERE;
   var _includeCallerInfo = false;
   Level get level => _level;
+  Level get stackTraceLevel => _stackTraceLevel;
   var mode = LoggerMode.log;
 
   /// Includes caller info only when includeCallerInfo is true.
@@ -46,7 +48,7 @@ class SimpleLogger {
   /// If includeCallerInfo is true, caller info will be included for
   /// any message of this level or above automatically.
   /// Because this is expensive, this is false by default.
-  /// So, setting stacktraceEnabled to true for only debug build is recommended.
+  /// So, setting stackTraceEnabled to true for only debug build is recommended.
   ///
   /// ### Example
   ///
@@ -56,8 +58,13 @@ class SimpleLogger {
   ///   includeCallerInfo: true,
   /// );
   /// ```
-  void setLevel(Level level, {bool includeCallerInfo = false}) {
+  void setLevel(
+    Level level, {
+    Level stackTraceLevel = Level.SEVERE,
+    bool includeCallerInfo = false,
+  }) {
     _level = level;
+    _stackTraceLevel = stackTraceLevel;
     _includeCallerInfo = includeCallerInfo;
   }
 
@@ -155,6 +162,9 @@ class SimpleLogger {
           log,
           level: level.value,
           name: 'simple_logger',
+          stackTrace: includeCallerInfo && level >= stackTraceLevel
+              ? StackTrace.current
+              : null,
         );
         break;
       case LoggerMode.stdout:
