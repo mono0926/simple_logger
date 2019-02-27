@@ -173,6 +173,7 @@ class SimpleLogger {
           log,
           level: level.value,
           name: 'simple_logger',
+          time: info.time,
           stackTrace: includeCallerInfo && level >= stackTraceLevel
               ? StackTrace.current
               : null,
