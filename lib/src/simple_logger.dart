@@ -145,7 +145,7 @@ class SimpleLogger {
   // ignore: avoid_positional_boolean_parameters
   void assertOrShout(bool condition, message) {
     if (!condition) {
-      shout(message);
+      _log(Level.SHOUT, message);
     }
     assert(condition, message);
   }
