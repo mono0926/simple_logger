@@ -1,3 +1,8 @@
+## 1.5.1
+
+- Add `assertOrShout`.
+  - Execute assert and shout if condition is false.
+
 ## 1.4.0
 
 - Rename to `LoggerMode.print` from `LoggerMode.stdout`.
