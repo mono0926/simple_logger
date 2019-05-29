@@ -142,6 +142,14 @@ class SimpleLogger {
   void warning(message) => _log(Level.WARNING, message);
   void severe(message) => _log(Level.SEVERE, message);
   void shout(message) => _log(Level.SHOUT, message);
+  // ignore: avoid_positional_boolean_parameters
+  void assertOrShout(bool condition, message) {
+    if (!condition) {
+      shout(message);
+    }
+    assert(condition, message);
+  }
+
   void log(Level level, message) => _log(level, message);
 
   void _log(Level level, message) {
