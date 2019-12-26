@@ -44,7 +44,7 @@ logger.levelSuffixes = {};
 logger.info('Hello info!');
 // -> INFO  2018-12-16 21:50:03.562583 [example/simple_logger_example.dart 29:10 in main] Hello info!
 
-logger.formatter = (_log, info) => 'Customized output: (${info.message})';
+logger.formatter = (info) => 'Customized output: (${info.message})';
 logger.info('Hello info!');
 // -> Customized output: (Hello info!)
 
