@@ -1,3 +1,13 @@
+## 1.6.0+1
+
+- Fix README
+  - https://github.com/mono0926/simple_logger/pull/1
+  - Thanks to [sh-ogawa](https://github.com/sh-ogawa)
+  
+## 1.6.0
+
+- Change default value of mode to LoggerMode.print from LoggerMode.log
+
 ## 1.5.1
 
 - Add `assertOrShout`.

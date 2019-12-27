@@ -1,7 +1,7 @@
 import 'package:simple_logger/simple_logger.dart';
 
 // Singleton (factory)
-final logger = SimpleLogger()..mode = LoggerMode.print;
+final logger = SimpleLogger();
 
 void main() {
   // Printed without called location

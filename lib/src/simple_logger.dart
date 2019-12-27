@@ -33,7 +33,7 @@ class SimpleLogger {
   var _includeCallerInfo = false;
   Level get level => _level;
   Level get stackTraceLevel => _stackTraceLevel;
-  var mode = LoggerMode.log;
+  var mode = LoggerMode.print;
 
   /// Includes caller info only when includeCallerInfo is true.
   /// See also `void setLevel(Level level, {bool includeCallerInfo})`
