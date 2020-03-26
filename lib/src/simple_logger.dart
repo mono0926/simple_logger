@@ -68,14 +68,14 @@ class SimpleLogger {
     _includeCallerInfo = includeCallerInfo;
   }
 
-  /// Customize level suffix by changing this.
+  /// Customize level prefix by changing this.
   ///
-  /// ### Suffix can be omitted.
+  /// ### Prefix can be omitted.
   ///
   /// ```
-  /// logger.levelSuffixes = {};
+  /// logger.levelPrefixes = {};
   /// ```
-  var levelSuffixes = {
+  var levelPrefixes = {
     Level.FINEST: '👾 ',
     Level.FINER: '👀 ',
     Level.FINE: '🎾 ',
@@ -107,7 +107,7 @@ class SimpleLogger {
       case LoggerMode.log:
         return '';
       case LoggerMode.print:
-        return '${levelSuffixes[level] ?? ''}$level ';
+        return '${levelPrefixes[level] ?? ''}$level ';
     }
     assert(false);
     return '';
