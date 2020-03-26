@@ -1,3 +1,7 @@
+## 1.7.0
+
+- Rename to `levelPrefixes` from `levelSuffixes`, which mistakenly named
+
 ## 1.6.0+1
 
 - Fix README
