@@ -12,5 +12,5 @@ dependencies:
 dev_dependencies:
   pedantic_mono: any
   test: '>=1.0.0 <2.0.0'
-dependency_overrides:
-  logging: ^1.0.0
+#dependency_overrides:
+#  logging: ^1.0.0
