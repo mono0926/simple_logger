@@ -27,21 +27,20 @@ enum LoggerMode {
 /// final logger = SimpleLogger();
 /// ```
 class SimpleLogger {
+  factory SimpleLogger() => _singleton;
+  SimpleLogger._();
+
   static final _singleton = SimpleLogger._();
   var _level = Level.INFO;
   var _stackTraceLevel = Level.SEVERE;
   var _includeCallerInfo = false;
   Level get level => _level;
   Level get stackTraceLevel => _stackTraceLevel;
-  var mode = LoggerMode.print;
+  LoggerMode mode = LoggerMode.print;
 
   /// Includes caller info only when includeCallerInfo is true.
   /// See also `void setLevel(Level level, {bool includeCallerInfo})`
   bool get includeCallerInfo => _includeCallerInfo;
-
-  factory SimpleLogger() => _singleton;
-
-  SimpleLogger._();
 
   bool isLoggable(Level value) => value >= level;
 
@@ -75,7 +74,7 @@ class SimpleLogger {
   /// ```
   /// logger.levelPrefixes = {};
   /// ```
-  var levelPrefixes = {
+  Map<Level, String> levelPrefixes = {
     Level.FINEST: '👾 ',
     Level.FINER: '👀 ',
     Level.FINE: '🎾 ',
@@ -93,7 +92,7 @@ class SimpleLogger {
   /// ```
   /// logger.formatter = (_log, info) => 'Customized output: (${info.message})';
   /// ```
-  Formatter formatter;
+  Formatter? formatter;
 
   String _format(LogInfo info) {
     return '${_levelInfo(info.level)}'
@@ -109,8 +108,6 @@ class SimpleLogger {
       case LoggerMode.print:
         return '${levelPrefixes[level] ?? ''}$level ';
     }
-    assert(false);
-    return '';
   }
 
   String _timeInfo(DateTime time) {
@@ -120,8 +117,6 @@ class SimpleLogger {
       case LoggerMode.print:
         return '$time ';
     }
-    assert(false);
-    return '';
   }
 
   /// Any login inserted after log printed.
@@ -134,25 +129,25 @@ class SimpleLogger {
   // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (_log, _info) {};
 
-  void finest(message) => _log(Level.FINEST, message);
-  void finer(message) => _log(Level.FINER, message);
-  void fine(message) => _log(Level.FINE, message);
-  void config(message) => _log(Level.CONFIG, message);
-  void info(message) => _log(Level.INFO, message);
-  void warning(message) => _log(Level.WARNING, message);
-  void severe(message) => _log(Level.SEVERE, message);
-  void shout(message) => _log(Level.SHOUT, message);
+  void finest(Object message) => _log(Level.FINEST, message);
+  void finer(Object message) => _log(Level.FINER, message);
+  void fine(Object message) => _log(Level.FINE, message);
+  void config(Object message) => _log(Level.CONFIG, message);
+  void info(Object message) => _log(Level.INFO, message);
+  void warning(Object message) => _log(Level.WARNING, message);
+  void severe(Object message) => _log(Level.SEVERE, message);
+  void shout(Object message) => _log(Level.SHOUT, message);
   // ignore: avoid_positional_boolean_parameters
-  void assertOrShout(bool condition, message) {
+  void assertOrShout(bool condition, Object message) {
     if (!condition) {
       _log(Level.SHOUT, message);
     }
     assert(condition, message);
   }
 
-  void log(Level level, message) => _log(level, message);
+  void log(Level level, Object message) => _log(level, message);
 
-  void _log(Level level, message) {
+  void _log(Level level, Object message) {
     if (!isLoggable(level)) {
       return;
     }
@@ -194,7 +189,7 @@ class SimpleLogger {
     onLogged(log, info);
   }
 
-  Frame _getCallerFrame() {
+  Frame? _getCallerFrame() {
     if (!includeCallerInfo) {
       return null;
     }

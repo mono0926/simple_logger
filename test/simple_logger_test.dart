@@ -1,3 +1,4 @@
+// ignore_for_file: lines_longer_than_80_chars, cascade_invocations
 import 'package:simple_logger/simple_logger.dart';
 import 'package:test/test.dart';
 

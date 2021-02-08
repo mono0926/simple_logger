@@ -1,3 +1,7 @@
+## 1.8.0
+
+- Migrate to null safety
+
 ## 1.7.0
 
 - Rename to `levelPrefixes` from `levelSuffixes`, which mistakenly named
