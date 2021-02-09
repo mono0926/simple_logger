@@ -129,14 +129,14 @@ class SimpleLogger {
   // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (_log, _info) {};
 
-  void finest(Object message) => _log(Level.FINEST, message);
-  void finer(Object message) => _log(Level.FINER, message);
-  void fine(Object message) => _log(Level.FINE, message);
-  void config(Object message) => _log(Level.CONFIG, message);
-  void info(Object message) => _log(Level.INFO, message);
-  void warning(Object message) => _log(Level.WARNING, message);
-  void severe(Object message) => _log(Level.SEVERE, message);
-  void shout(Object message) => _log(Level.SHOUT, message);
+  void finest(Object? message) => _log(Level.FINEST, message);
+  void finer(Object? message) => _log(Level.FINER, message);
+  void fine(Object? message) => _log(Level.FINE, message);
+  void config(Object? message) => _log(Level.CONFIG, message);
+  void info(Object? message) => _log(Level.INFO, message);
+  void warning(Object? message) => _log(Level.WARNING, message);
+  void severe(Object? message) => _log(Level.SEVERE, message);
+  void shout(Object? message) => _log(Level.SHOUT, message);
   // ignore: avoid_positional_boolean_parameters
   void assertOrShout(bool condition, Object message) {
     if (!condition) {
@@ -147,7 +147,7 @@ class SimpleLogger {
 
   void log(Level level, Object message) => _log(level, message);
 
-  void _log(Level level, Object message) {
+  void _log(Level level, Object? message) {
     if (!isLoggable(level)) {
       return;
     }
