@@ -130,19 +130,12 @@ class SimpleLogger {
   OnLogged onLogged = (_log, _info) {};
 
   String? finest(Object? message) => _log(Level.FINEST, message);
-
   String? finer(Object? message) => _log(Level.FINER, message);
-
   String? fine(Object? message) => _log(Level.FINE, message);
-
   String? config(Object? message) => _log(Level.CONFIG, message);
-
   String? info(Object? message) => _log(Level.INFO, message);
-
   String? warning(Object? message) => _log(Level.WARNING, message);
-
   String? severe(Object? message) => _log(Level.SEVERE, message);
-
   String? shout(Object? message) => _log(Level.SHOUT, message);
 
   // ignore: avoid_positional_boolean_parameters
