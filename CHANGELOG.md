@@ -1,3 +1,7 @@
+## 1.8.1
+
+- Add a return value to the log (#5)
+
 ## 1.8.0
 
 - Migrate to null safety
@@ -11,7 +15,7 @@
 - Fix README
   - https://github.com/mono0926/simple_logger/pull/1
   - Thanks to [sh-ogawa](https://github.com/sh-ogawa)
-  
+
 ## 1.6.0
 
 - Change default value of mode to LoggerMode.print from LoggerMode.log
@@ -25,7 +29,7 @@
 
 - Rename to `LoggerMode.print` from `LoggerMode.stdout`.
 
-## 1.3.0 
+## 1.3.0
 
 - Omit time if `mode` is `LoggerMode.log`.
 
