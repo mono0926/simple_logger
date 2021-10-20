@@ -154,7 +154,7 @@ class SimpleLogger {
     }
 
     String msg;
-    if (message is Function) {
+    if (message is Function()) {
       msg = message().toString();
     } else if (message is String) {
       msg = message;
