@@ -13,6 +13,7 @@ void main() {
       expect(target.formatter, null);
       expect(target.levelPrefixes.isNotEmpty, true);
       expect(target.includeCallerInfo, false);
+      expect(target.callerInfoFrameLevel, 0);
 
       target.info('test');
       target.setLevel(Level.INFO, includeCallerInfo: true);
