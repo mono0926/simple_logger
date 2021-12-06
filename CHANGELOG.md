@@ -1,3 +1,7 @@
+## 1.9.0
+
+- Add parameter to customize frame level offset for caller info (#8)
+
 ## 1.8.1
 
 - Add a return value to the log (#5)
