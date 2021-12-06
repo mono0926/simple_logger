@@ -162,6 +162,7 @@ class SimpleLogger {
     }
 
     String msg;
+    // ignore: inference_failure_on_function_return_type
     if (message is Function()) {
       msg = message().toString();
     } else if (message is String) {
@@ -192,6 +193,7 @@ class SimpleLogger {
         );
         break;
       case LoggerMode.print:
+        // ignore: avoid_print
         print(log);
     }
     onLogged(log, info);
