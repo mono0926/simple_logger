@@ -34,7 +34,7 @@ class SimpleLogger {
   var _level = Level.INFO;
   var _stackTraceLevel = Level.SEVERE;
   var _includeCallerInfo = false;
-  var _callerInfoFrameLevel = 0;
+  var _callerInfoFrameLevelOffset = 0;
   Level get level => _level;
   Level get stackTraceLevel => _stackTraceLevel;
   LoggerMode mode = LoggerMode.print;
@@ -46,7 +46,7 @@ class SimpleLogger {
   /// Stack trace level used to determine caller info.
   /// Usually you DON'T have to specify this value, but it's useful
   /// if you wrap this SimpleLogger by your own logger.
-  int get callerInfoFrameLevel => _callerInfoFrameLevel;
+  int get callerInfoFrameLevelOffset => _callerInfoFrameLevelOffset;
 
   bool isLoggable(Level value) => value >= level;
 
@@ -67,12 +67,12 @@ class SimpleLogger {
     Level level, {
     Level stackTraceLevel = Level.SEVERE,
     bool includeCallerInfo = false,
-    int callerInfoFrameLevel = 0,
+    int callerInfoFrameLevelOffset = 0,
   }) {
     _level = level;
     _stackTraceLevel = stackTraceLevel;
     _includeCallerInfo = includeCallerInfo;
-    _callerInfoFrameLevel = callerInfoFrameLevel;
+    _callerInfoFrameLevelOffset = callerInfoFrameLevelOffset;
   }
 
   /// Customize level prefix by changing this.
@@ -205,7 +205,8 @@ class SimpleLogger {
 
     // Expensive
     const baseLevel = 3;
-    final frames = Trace.current(baseLevel + _callerInfoFrameLevel).frames;
+    final frames =
+        Trace.current(baseLevel + _callerInfoFrameLevelOffset).frames;
     return frames.isEmpty ? null : frames.first;
   }
 }
