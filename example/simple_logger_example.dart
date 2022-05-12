@@ -45,7 +45,7 @@ void main() {
   // -> Customized output: (Hello info!)
 
   // ignore: avoid_print
-  logger.onLogged = (_log, info) => print('Insert your logic with $info');
+  logger.onLogged = (log, info) => print('Insert your logic with $info');
   logger.info('Hello info!');
   // -> Customized output: (Hello info!)
   // -> Insert your logic with Instance of 'LogInfo'

@@ -135,7 +135,7 @@ class SimpleLogger {
   /// logger.onLogged = (info) => print('Insert your logic with $info');
   /// ```
   // ignore: prefer_function_declarations_over_variables
-  OnLogged onLogged = (_log, _info) {};
+  OnLogged onLogged = (log, info) {};
 
   String? finest(Object? message) => _log(Level.FINEST, message);
   String? finer(Object? message) => _log(Level.FINER, message);
