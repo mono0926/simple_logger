@@ -10,7 +10,7 @@ void main() {
       expect(target.isLoggable(Level.INFO), true);
       expect(target.isLoggable(Level.FINE), false);
       expect(target.isLoggable(Level.SHOUT), true);
-      expect(target.formatter, null);
+      expect(target.formatter, isNotNull);
       expect(target.levelPrefixes.isNotEmpty, true);
       expect(target.includeCallerInfo, false);
       expect(target.callerInfoFrameLevelOffset, 0);

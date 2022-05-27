@@ -2,7 +2,7 @@
 import 'package:simple_logger/simple_logger.dart';
 
 // Singleton (factory)
-final logger = SimpleLogger();
+final logger = SimpleLogger()..onLogged = print;
 
 void main() {
   // Printed without called location
@@ -45,7 +45,7 @@ void main() {
   // -> Customized output: (Hello info!)
 
   // ignore: avoid_print
-  logger.onLogged = (log, info) => print('Insert your logic with $info');
+  logger.onLogged = (record) => print('Insert your logic with $record');
   logger.info('Hello info!');
   // -> Customized output: (Hello info!)
   // -> Insert your logic with Instance of 'LogInfo'

@@ -1,13 +1,11 @@
 import 'dart:developer' as developer;
 
-import 'package:logging/logging.dart' show Level;
-import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
-
-import 'log_info.dart';
+import 'package:logging/logging.dart';
+import 'package:stack_trace/stack_trace.dart';
 
 typedef Formatter = String Function(LogInfo info);
 
-typedef OnLogged = void Function(String log, LogInfo info);
+typedef OnLogged = void Function(LogRecord record);
 
 /// Select log mode.
 ///
@@ -28,16 +26,38 @@ enum LoggerMode {
 /// ```
 class SimpleLogger {
   factory SimpleLogger() => _singleton;
-  SimpleLogger._();
+  SimpleLogger._() {
+    hierarchicalLoggingEnabled = true;
+    _logger.onRecord.listen((record) {
+      switch (mode) {
+        case LoggerMode.log:
+          developer.log(
+            record.message,
+            time: record.time,
+            sequenceNumber: record.sequenceNumber,
+            level: record.level.value,
+            name: record.loggerName,
+            zone: record.zone,
+            error: record.error,
+            stackTrace: record.stackTrace,
+          );
+          break;
+        case LoggerMode.print:
+          // ignore: avoid_print
+          print(record.message);
+      }
+      onLogged?.call(record);
+    });
+  }
 
+  final _logger = Logger('simple_logger');
   static final _singleton = SimpleLogger._();
-  var _level = Level.INFO;
   var _stackTraceLevel = Level.SEVERE;
   var _includeCallerInfo = false;
   var _callerInfoFrameLevelOffset = 0;
-  Level get level => _level;
+  Level get level => _logger.level;
   Level get stackTraceLevel => _stackTraceLevel;
-  LoggerMode mode = LoggerMode.print;
+  LoggerMode mode = LoggerMode.log;
 
   /// Includes caller info only when includeCallerInfo is true.
   /// See also `void setLevel(Level level, {bool includeCallerInfo})`
@@ -69,7 +89,7 @@ class SimpleLogger {
     bool includeCallerInfo = false,
     int callerInfoFrameLevelOffset = 0,
   }) {
-    _level = level;
+    _logger.level = level;
     _stackTraceLevel = stackTraceLevel;
     _includeCallerInfo = includeCallerInfo;
     _callerInfoFrameLevelOffset = callerInfoFrameLevelOffset;
@@ -100,9 +120,9 @@ class SimpleLogger {
   /// ```
   /// logger.formatter = (_log, info) => 'Customized output: (${info.message})';
   /// ```
-  Formatter? formatter;
+  late Formatter formatter = _defaultFormatter;
 
-  String _format(LogInfo info) {
+  String _defaultFormatter(LogInfo info) {
     return '${_levelInfo(info.level)}'
         '${_timeInfo(info.time)}'
         '[${info.callerFrame ?? 'caller info not available'}] '
@@ -135,33 +155,42 @@ class SimpleLogger {
   /// logger.onLogged = (info) => print('Insert your logic with $info');
   /// ```
   // ignore: prefer_function_declarations_over_variables
-  OnLogged onLogged = (log, info) {};
+  OnLogged? onLogged;
 
-  String? finest(Object? message) => _log(Level.FINEST, message);
-  String? finer(Object? message) => _log(Level.FINER, message);
-  String? fine(Object? message) => _log(Level.FINE, message);
-  String? config(Object? message) => _log(Level.CONFIG, message);
-  String? info(Object? message) => _log(Level.INFO, message);
-  String? warning(Object? message) => _log(Level.WARNING, message);
-  String? severe(Object? message) => _log(Level.SEVERE, message);
-  String? shout(Object? message) => _log(Level.SHOUT, message);
+  void finest(Object? message, {Object? error}) =>
+      _log(Level.FINEST, message, error);
+  void finer(Object? message, {Object? error}) =>
+      _log(Level.FINER, message, error);
+  void fine(Object? message, {Object? error}) =>
+      _log(Level.FINE, message, error);
+  void config(Object? message, {Object? error}) =>
+      _log(Level.CONFIG, message, error);
+  void info(Object? message, {Object? error}) =>
+      _log(Level.INFO, message, error);
+  void warning(Object? message, {Object? error}) =>
+      _log(Level.WARNING, message, error);
+  void severe(Object? message, {Object? error}) =>
+      _log(Level.SEVERE, message, error);
+  void shout(Object? message, {Object? error}) =>
+      _log(Level.SHOUT, message, error);
 
   // ignore: avoid_positional_boolean_parameters
-  void assertOrShout(bool condition, Object message) {
+  void assertOrShout(bool condition, Object message, {Object? error}) {
+    assert(condition, '$message${error == null ? '' : '(error: $error)'}');
     if (!condition) {
-      _log(Level.SHOUT, message);
+      _log(Level.SHOUT, message, error);
     }
-    assert(condition, message);
   }
 
-  void log(Level level, Object message) => _log(level, message);
+  void log(Level level, Object message, {Object? error}) =>
+      _log(level, message, error);
 
-  String? _log(Level level, Object? message) {
+  void _log(Level level, Object? message, Object? error) {
     if (!isLoggable(level)) {
-      return null;
+      return;
     }
 
-    String msg;
+    final String msg;
     // ignore: inference_failure_on_function_return_type
     if (message is Function()) {
       msg = message().toString();
@@ -171,33 +200,19 @@ class SimpleLogger {
       msg = message.toString();
     }
 
-    final info = LogInfo(
-      level: level,
-      time: DateTime.now(),
-      callerFrame: _getCallerFrame(),
-      message: msg,
+    _logger.log(
+      level,
+      formatter(
+        LogInfo(
+          level: level,
+          time: DateTime.now(),
+          callerFrame: _getCallerFrame(),
+          message: msg,
+        ),
+      ),
+      error,
+      includeCallerInfo && level >= stackTraceLevel ? StackTrace.current : null,
     );
-
-    final f = formatter ?? _format;
-    final log = f(info);
-    switch (mode) {
-      case LoggerMode.log:
-        developer.log(
-          log,
-          level: level.value,
-          name: 'simple_logger',
-          time: info.time,
-          stackTrace: includeCallerInfo && level >= stackTraceLevel
-              ? StackTrace.current
-              : null,
-        );
-        break;
-      case LoggerMode.print:
-        // ignore: avoid_print
-        print(log);
-    }
-    onLogged(log, info);
-    return log;
   }
 
   Frame? _getCallerFrame() {
@@ -211,4 +226,21 @@ class SimpleLogger {
         Trace.current(baseLevel + _callerInfoFrameLevelOffset).frames;
     return frames.isEmpty ? null : frames.first;
   }
+}
+
+class LogInfo {
+  LogInfo({
+    required this.level,
+    required this.time,
+    this.callerFrame,
+    required this.message,
+  });
+
+  final Level level;
+  final DateTime time;
+
+  /// Caller info.
+  /// Available only when logger's includeCallerInfo is true.
+  final Frame? callerFrame;
+  final String message;
 }
