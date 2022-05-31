@@ -1,11 +1,10 @@
 import 'package:logging/logging.dart' show Level;
-import 'package:stack_trace/stack_trace.dart' show Frame;
 
 class LogInfo {
   LogInfo({
     required this.level,
     required this.time,
-    this.callerFrame,
+    this.callerStackTraceLine,
     required this.message,
   });
 
@@ -14,6 +13,6 @@ class LogInfo {
 
   /// Caller info.
   /// Available only when logger's includeCallerInfo is true.
-  final Frame? callerFrame;
+  final String? callerStackTraceLine;
   final String message;
 }

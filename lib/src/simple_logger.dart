@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'package:logging/logging.dart' show Level;
-import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
 
 import 'log_info.dart';
 
@@ -105,7 +104,7 @@ class SimpleLogger {
   String _format(LogInfo info) {
     return '${_levelInfo(info.level)}'
         '${_timeInfo(info.time)}'
-        '[${info.callerFrame ?? 'caller info not available'}] '
+        '[${info.callerStackTraceLine ?? 'caller info not available'}] '
         '${info.message}';
   }
 
@@ -174,7 +173,7 @@ class SimpleLogger {
     final info = LogInfo(
       level: level,
       time: DateTime.now(),
-      callerFrame: _getCallerFrame(),
+      callerStackTraceLine: _getCallerStackTraceLine(),
       message: msg,
     );
 
@@ -200,15 +199,17 @@ class SimpleLogger {
     return log;
   }
 
-  Frame? _getCallerFrame() {
+  String? _getCallerStackTraceLine() {
     if (!includeCallerInfo) {
       return null;
     }
 
     // Expensive
     const baseLevel = 3;
-    final frames =
-        Trace.current(baseLevel + _callerInfoFrameLevelOffset).frames;
-    return frames.isEmpty ? null : frames.first;
+    final stackTraces = StackTrace.current
+        .toString()
+        .split('\n')
+        .sublist(baseLevel + _callerInfoFrameLevelOffset);
+    return stackTraces.isEmpty ? null : stackTraces.first;
   }
 }
