@@ -2,8 +2,10 @@ name: simple_logger
 description: >-
   Provides super simple APIs for logging. The log also includes caller info by setting
   includeCallerInfo to true. On Android Studio, jump to called location by clicking the log.
-version: 1.9.0
-homepage: https://github.com/mono0926/simple_logger
+version: 1.9.0+1
+repository: https://github.com/mono0926/simple_logger
+funding:
+  - https://github.com/sponsors/mono0926
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
