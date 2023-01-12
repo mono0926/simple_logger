@@ -46,6 +46,7 @@
 - Add LoggerMode
   - Default is LoggerMode.log, which uses `dart:developer`'s `log` function.
   - If LoggerMode.stdout is selected, `print` function will be used.
+
 ## 1.0.0
 
 - Bump up to 1.0.0
@@ -72,11 +73,9 @@
 
 - Rename to `includesCallerInfo` from `stacktraceEnabled`
 
-
 ## 0.2.0
 
 - Delete `now` property
-
 
 ## 0.1.1
 
