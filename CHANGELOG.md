@@ -1,3 +1,7 @@
+## 1.9.0+2
+
+- Change stackTraceEnabled in the document to includeCallerInfo (#9)
+
 ## 1.9.0
 
 - Add parameter to customize frame level offset for caller info (#8)
