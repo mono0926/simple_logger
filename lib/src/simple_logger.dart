@@ -53,7 +53,7 @@ class SimpleLogger {
   /// If includeCallerInfo is true, caller info will be included for
   /// any message of this level or above automatically.
   /// Because this is expensive, this is false by default.
-  /// So, setting stackTraceEnabled to true for only debug build is recommended.
+  /// So, setting includeCallerInfo to true for only debug build is recommended.
   ///
   /// ### Example
   ///
