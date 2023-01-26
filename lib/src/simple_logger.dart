@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 
 import 'package:logging/logging.dart' show Level;
-import 'package:stack_trace/stack_trace.dart' show Trace, Frame;
+import 'package:stack_trace/stack_trace.dart' show Frame, Trace;
 
 import 'log_info.dart';
 
