@@ -1,3 +1,7 @@
+## 1.9.0+3
+
+- Adds pub topics to package metadata.
+
 ## 1.9.0+2
 
 - Change stackTraceEnabled in the document to includeCallerInfo (#9)
