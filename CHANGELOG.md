@@ -1,3 +1,7 @@
+## 1.10.0
+
+- Add optional paramters(`error` and `stackTrace`)
+
 ## 1.9.0+3
 
 - Adds pub topics to package metadata.

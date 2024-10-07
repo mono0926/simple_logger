@@ -7,6 +7,8 @@ class LogInfo {
     required this.time,
     this.callerFrame,
     required this.message,
+    this.error,
+    this.stackTrace,
   });
 
   final Level level;
@@ -16,4 +18,6 @@ class LogInfo {
   /// Available only when logger's includeCallerInfo is true.
   final Frame? callerFrame;
   final String message;
+  final Object? error;
+  final StackTrace? stackTrace;
 }

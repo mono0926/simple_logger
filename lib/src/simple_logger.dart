@@ -137,26 +137,153 @@ class SimpleLogger {
   // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (log, info) {};
 
-  String? finest(Object? message) => _log(Level.FINEST, message);
-  String? finer(Object? message) => _log(Level.FINER, message);
-  String? fine(Object? message) => _log(Level.FINE, message);
-  String? config(Object? message) => _log(Level.CONFIG, message);
-  String? info(Object? message) => _log(Level.INFO, message);
-  String? warning(Object? message) => _log(Level.WARNING, message);
-  String? severe(Object? message) => _log(Level.SEVERE, message);
-  String? shout(Object? message) => _log(Level.SHOUT, message);
+  String? finest(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.FINEST,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? finer(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.FINER,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? fine(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.FINE,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? config(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.CONFIG,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? info(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.INFO,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? warning(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.WARNING,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? severe(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.SEVERE,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
+  String? shout(
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        Level.SHOUT,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
 
   // ignore: avoid_positional_boolean_parameters
-  void assertOrShout(bool condition, Object message) {
+  void assertOrShout(
+    bool condition,
+    Object message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     if (!condition) {
-      _log(Level.SHOUT, message);
+      _log(
+        Level.SHOUT,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
     assert(condition, message);
   }
 
-  void log(Level level, Object message) => _log(level, message);
+  void log(
+    Level level,
+    Object message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) =>
+      _log(
+        level,
+        message,
+        time: time,
+        error: error,
+        stackTrace: stackTrace,
+      );
 
-  String? _log(Level level, Object? message) {
+  String? _log(
+    Level level,
+    Object? message, {
+    DateTime? time,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     if (!isLoggable(level)) {
       return null;
     }
@@ -173,9 +300,11 @@ class SimpleLogger {
 
     final info = LogInfo(
       level: level,
-      time: DateTime.now(),
+      time: time ?? DateTime.now(),
       callerFrame: _getCallerFrame(),
       message: msg,
+      error: error,
+      stackTrace: stackTrace,
     );
 
     final f = formatter ?? _format;
@@ -187,9 +316,11 @@ class SimpleLogger {
           level: level.value,
           name: 'simple_logger',
           time: info.time,
-          stackTrace: includeCallerInfo && level >= stackTraceLevel
-              ? StackTrace.current
-              : null,
+          error: info.error,
+          stackTrace: stackTrace ??
+              (includeCallerInfo && level >= stackTraceLevel
+                  ? StackTrace.current
+                  : null),
         );
         break;
       case LoggerMode.print:
