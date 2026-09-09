@@ -1,3 +1,8 @@
+## 1.10.1
+
+- Add AI Agent Skill (`simple_logger-logging`)
+- Specify property types and resolve static analysis issues
+
 ## 1.10.0
 
 - Add optional paramters(`error` and `stackTrace`)
