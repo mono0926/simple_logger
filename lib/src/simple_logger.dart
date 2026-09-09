@@ -31,10 +31,10 @@ class SimpleLogger {
   SimpleLogger._();
 
   static final _singleton = SimpleLogger._();
-  var _level = Level.INFO;
-  var _stackTraceLevel = Level.SEVERE;
-  var _includeCallerInfo = false;
-  var _callerInfoFrameLevelOffset = 0;
+  Level _level = Level.INFO;
+  Level _stackTraceLevel = Level.SEVERE;
+  bool _includeCallerInfo = false;
+  int _callerInfoFrameLevelOffset = 0;
   Level get level => _level;
   Level get stackTraceLevel => _stackTraceLevel;
   LoggerMode mode = LoggerMode.print;
@@ -242,8 +242,8 @@ class SimpleLogger {
         stackTrace: stackTrace,
       );
 
-  // ignore: avoid_positional_boolean_parameters
   void assertOrShout(
+    // ignore: avoid_positional_boolean_parameters
     bool condition,
     Object message, {
     DateTime? time,
@@ -322,7 +322,6 @@ class SimpleLogger {
                   ? StackTrace.current
                   : null),
         );
-        break;
       case LoggerMode.print:
         // ignore: avoid_print
         print(log);
