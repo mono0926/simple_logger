@@ -1,3 +1,9 @@
+## 1.10.2 - 2026-10-20
+
+### Bug Fixes
+- Modernize internals with Dart 3 switch expressions, pattern matching, and `Iterable.firstOrNull`
+- Add language specifiers to dartdoc code blocks
+
 ## 1.10.1
 
 - Add AI Agent Skill (`simple_logger-logging`)
