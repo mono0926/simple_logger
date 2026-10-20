@@ -57,7 +57,7 @@ class SimpleLogger {
   ///
   /// ### Example
   ///
-  /// ```
+  /// ```dart
   /// logger.setLevel(
   ///   Level.INFO,
   ///   includeCallerInfo: true,
@@ -79,7 +79,7 @@ class SimpleLogger {
   ///
   /// ### Prefix can be omitted.
   ///
-  /// ```
+  /// ```dart
   /// logger.levelPrefixes = {};
   /// ```
   Map<Level, String> levelPrefixes = {
@@ -97,7 +97,7 @@ class SimpleLogger {
   ///
   /// ### Example
   ///
-  /// ```
+  /// ```dart
   /// logger.formatter = (_log, info) => 'Customized output: (${info.message})';
   /// ```
   Formatter? formatter;
@@ -109,32 +109,23 @@ class SimpleLogger {
         '${info.message}';
   }
 
-  String _levelInfo(Level level) {
-    switch (mode) {
-      case LoggerMode.log:
-        return '';
-      case LoggerMode.print:
-        return '${levelPrefixes[level] ?? ''}$level ';
-    }
-  }
+  String _levelInfo(Level level) => switch (mode) {
+        LoggerMode.log => '',
+        LoggerMode.print => '${levelPrefixes[level] ?? ''}$level ',
+      };
 
-  String _timeInfo(DateTime time) {
-    switch (mode) {
-      case LoggerMode.log:
-        return '';
-      case LoggerMode.print:
-        return '$time ';
-    }
-  }
+  String _timeInfo(DateTime time) => switch (mode) {
+        LoggerMode.log => '',
+        LoggerMode.print => '$time ',
+      };
 
   /// Any login inserted after log printed.
   ///
   /// ### Example
   ///
-  /// ```
+  /// ```dart
   /// logger.onLogged = (info) => print('Insert your logic with $info');
   /// ```
-  // ignore: prefer_function_declarations_over_variables
   OnLogged onLogged = (log, info) {};
 
   String? finest(
@@ -288,15 +279,11 @@ class SimpleLogger {
       return null;
     }
 
-    String msg;
-    // ignore: inference_failure_on_function_return_type
-    if (message is Function()) {
-      msg = message().toString();
-    } else if (message is String) {
-      msg = message;
-    } else {
-      msg = message.toString();
-    }
+    final msg = switch (message) {
+      final Object? Function() f => f().toString(),
+      final String s => s,
+      _ => message.toString(),
+    };
 
     final info = LogInfo(
       level: level,
@@ -339,6 +326,6 @@ class SimpleLogger {
     const baseLevel = 3;
     final frames =
         Trace.current(baseLevel + _callerInfoFrameLevelOffset).frames;
-    return frames.isEmpty ? null : frames.first;
+    return frames.firstOrNull;
   }
 }
