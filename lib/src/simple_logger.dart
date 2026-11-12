@@ -13,12 +13,12 @@ typedef OnLogged = void Function(String log, LogInfo info);
 ///
 /// Default is [log], which use `dart:developer`'s `log` function.
 /// The `print` use [print] function.
-enum LoggerMode {
+enum LoggerMode() {
   /// Use `dart:developer`'s function.
   log,
 
   /// Use [print] function.
-  print
+  print,
 }
 
 /// Get singleton logger by `SimpleLogger()`
@@ -26,9 +26,8 @@ enum LoggerMode {
 /// ```dart
 /// final logger = SimpleLogger();
 /// ```
-class SimpleLogger {
-  factory SimpleLogger() => _singleton;
-  SimpleLogger._();
+class SimpleLogger._() {
+  factory() => _singleton;
 
   static final _singleton = SimpleLogger._();
   Level _level = Level.INFO;
@@ -110,14 +109,14 @@ class SimpleLogger {
   }
 
   String _levelInfo(Level level) => switch (mode) {
-        LoggerMode.log => '',
-        LoggerMode.print => '${levelPrefixes[level] ?? ''}$level ',
-      };
+    LoggerMode.log => '',
+    LoggerMode.print => '${levelPrefixes[level] ?? ''}$level ',
+  };
 
   String _timeInfo(DateTime time) => switch (mode) {
-        LoggerMode.log => '',
-        LoggerMode.print => '$time ',
-      };
+    LoggerMode.log => '',
+    LoggerMode.print => '$time ',
+  };
 
   /// Any login inserted after log printed.
   ///
@@ -133,108 +132,99 @@ class SimpleLogger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.FINEST,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.FINEST,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? finer(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.FINER,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.FINER,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? fine(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.FINE,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.FINE,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? config(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.CONFIG,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.CONFIG,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? info(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.INFO,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.INFO,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? warning(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.WARNING,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.WARNING,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? severe(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.SEVERE,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.SEVERE,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
   String? shout(
     Object? message, {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        Level.SHOUT,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    Level.SHOUT,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
 
   void assertOrShout(
-    // ignore: avoid_positional_boolean_parameters
     bool condition,
     Object message, {
     DateTime? time,
@@ -259,14 +249,13 @@ class SimpleLogger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(
-        level,
-        message,
-        time: time,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _log(
+    level,
+    message,
+    time: time,
+    error: error,
+    stackTrace: stackTrace,
+  );
 
   String? _log(
     Level level,
@@ -304,7 +293,8 @@ class SimpleLogger {
           name: 'simple_logger',
           time: info.time,
           error: info.error,
-          stackTrace: stackTrace ??
+          stackTrace:
+              stackTrace ??
               (includeCallerInfo && level >= stackTraceLevel
                   ? StackTrace.current
                   : null),
@@ -324,8 +314,8 @@ class SimpleLogger {
 
     // Expensive
     const baseLevel = 3;
-    final frames =
-        Trace.current(baseLevel + _callerInfoFrameLevelOffset).frames;
+    final frames = Trace.current(baseLevel + _callerInfoFrameLevelOffset)
+        .frames;
     return frames.firstOrNull;
   }
 }
