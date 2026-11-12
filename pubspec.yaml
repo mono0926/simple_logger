@@ -7,12 +7,12 @@ repository: https://github.com/mono0926/simple_logger
 funding:
   - https://github.com/sponsors/mono0926
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.14.0
 dependencies:
   logging: ^1.0.0
   stack_trace: ^1.0.0
 dev_dependencies:
-  pedantic_mono:
+  pedantic_mono: ^1.39.0
   test:
 topics:
   - logger
