@@ -1,3 +1,9 @@
+## 1.11.0 - 2026-11-12
+
+### Features
+- Bump minimum Dart SDK version to `^3.14.0` (#17)
+- Adopt Dart 3.14 primary constructors and update `pedantic_mono` to `^1.39.0` (#17)
+
 ## 1.10.2 - 2026-10-20
 
 ### Bug Fixes
